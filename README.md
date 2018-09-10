@@ -33,9 +33,16 @@ There are two primary functions that this lambda function serves:
 * **get_manifests_to_process** - gets the manifest record from dynamoDB for a batchId
 
 
+<a name="design-diagram"/>
+
+## III. Design Diagram
+
+![sdc-dot-waze-get-manifests-for-persistence](images/waze-data-persistence.png)
+
+
 <a name="getting-started"/>
 
-## III. Getting Started
+## IV. Getting Started
 
 The following instructions describe the procedure to build and deploy the lambda.
 
