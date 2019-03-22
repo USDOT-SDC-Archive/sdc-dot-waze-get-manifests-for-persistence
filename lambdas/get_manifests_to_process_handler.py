@@ -2,8 +2,8 @@ import boto3
 import json
 import os
 from common.logger_utility import *
-from boto3.dynamodb.conditions import Attr, Key
 from common.constants import *
+from boto3.dynamodb.conditions import Attr, Key
 
 class ManifestHandler:
 
@@ -20,20 +20,22 @@ class ManifestHandler:
             data["jam_point_sequenceurl"]=""
             data["queueUrl"]=event.get("queueUrl")
             data["receiptHandle"]=event.get("receiptHandle")
+            data["is_historical"] = event.get("is_historical")
+            is_historical = event.get("is_historical") == "true"
             if batch_id is None:
                 return data
             dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-            table = dynamodb.Table('dev-CurationManifestFilesTable')
+            table = dynamodb.Table(os.environ["CURATION_MANIFEST_TABLE"])
             response = table.query(
-                       IndexName="dev-BatchId-TableName-index",
+                       IndexName= os.environ["CURATION_MANIFEST_INDEX"],
                         KeyConditionExpression=Key('BatchId').eq(batch_id),
-                        FilterExpression=Attr('FileStatus').eq('open'))
-          
+                        FilterExpression=Attr('FileStatus').eq('open') & Attr('IsHistorical').eq(is_historical))
+            
             data["batchId"]=batch_id
             for item in response['Items']:
-                            manifest_s3key_name = item['ManifestS3Key']
+                            #manifest_s3key_name = item['ManifestS3Key']
                             url=item["TableName"]+"url"
-                            data[url] = item["ManifestS3Key"]
+                            data[url] = item["CombinedS3Key"]
                             totalCuratedRecordsByState=item["TotalCuratedRecordsByState"]
             
             
