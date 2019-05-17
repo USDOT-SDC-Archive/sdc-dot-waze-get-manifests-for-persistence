@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/usdot-jpo-sdc/sdc-dot-waze-get-manifests-for-persistence.svg?branch=master)](https://travis-ci.com/usdot-jpo-sdc/sdc-dot-waze-get-manifests-for-persistence)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=usdot-jpo-sdc_sdc-dot-waze-get-manifests-for-persistence&metric=alert_status)](https://sonarcloud.io/dashboard?id=usdot-jpo-sdc_sdc-dot-waze-get-manifests-for-persistence)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=usdot-jpo-sdc_sdc-dot-waze-get-manifests-for-persistence&metric=coverage)](https://sonarcloud.io/dashboard?id=usdot-jpo-sdc_sdc-dot-waze-get-manifests-for-persistence)
 # sdc-dot-waze-get-manifests-for-persistence
 This lambda function is responsible for getting the manifest file for a batch Id from DynamoDB during the data persistence process.
 
