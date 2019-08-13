@@ -2,8 +2,8 @@ import boto3
 import json
 import os
 from common.logger_utility import *
-from boto3.dynamodb.conditions import Attr, Key
 from common.constants import *
+from boto3.dynamodb.conditions import Attr, Key
 
 
 class ManifestHandler:
@@ -24,7 +24,7 @@ class ManifestHandler:
             if batch_id is None:
                 return data
             dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-            table = dynamodb.Table('dev-CurationManifestFilesTable')
+            table = dynamodb.Table(os.environ["CURATION_MANIFEST_TABLE"])
             response = table.query(
                 IndexName="dev-BatchId-TableName-index",
                 KeyConditionExpression=Key('BatchId').eq(batch_id),
