@@ -1,4 +1,5 @@
 import boto3
+import os
 from boto3.dynamodb.conditions import Attr, Key
 from moto import mock_dynamodb2
 from lambdas.get_manifests_to_process_handler import ManifestHandler
@@ -13,6 +14,7 @@ def test_get_manifests_to_process_batch_id():
         "BatchId": "0"
     }
 
+    os.environ["CURATION_MANIFEST_TABLE"] = 'dev-CurationManifestFilesTable'
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.create_table(
         TableName='dev-CurationManifestFilesTable',
@@ -98,6 +100,7 @@ def test_get_manifests_to_process_no_batch_id():
         "receiptHandle": "not actually a receipt handle"
     }
 
+    os.environ["CURATION_MANIFEST_TABLE"] = 'dev-CurationManifestFilesTable'
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.create_table(
         TableName='dev-CurationManifestFilesTable',
