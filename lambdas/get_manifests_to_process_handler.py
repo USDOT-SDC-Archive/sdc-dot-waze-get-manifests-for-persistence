@@ -1,14 +1,14 @@
-import boto3
-import json
 import os
-from common.logger_utility import *
-from common.constants import *
+
+import boto3
 from boto3.dynamodb.conditions import Attr, Key
+
+from common.logger_utility import LoggerUtility
 
 
 class ManifestHandler:
 
-    def _get_manifests_to_process(self, event, context):
+    def _get_manifests_to_process(self, event):
         try:
             batch_id = event.get("BatchId")
             data = dict()
@@ -30,18 +30,16 @@ class ManifestHandler:
                 KeyConditionExpression=Key('BatchId').eq(batch_id),
                 FilterExpression=Attr('FileStatus').eq('open')
             )
-          
+
             data["batchId"] = batch_id
             for item in response['Items']:
-                manifest_s3key_name = item['ManifestS3Key']
-                url = item["TableName"]+"url"
+                url = item["TableName"] + "url"
                 data[url] = item["ManifestS3Key"]
-                totalCuratedRecordsByState = item["TotalCuratedRecordsByState"]
 
             return data
         except Exception as e:
-            LoggerUtility.logError("Error getting manifests for batches")
+            LoggerUtility.log_error("Error getting manifests for batches")
             raise e
-    
-    def get_manifests(self, event, context):
-        return self._get_manifests_to_process(event, context)
+
+    def get_manifests(self, event):
+        return self._get_manifests_to_process(event)
