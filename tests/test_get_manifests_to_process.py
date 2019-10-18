@@ -1,13 +1,13 @@
-import boto3
 import os
-from boto3.dynamodb.conditions import Attr, Key
+
+import boto3
 from moto import mock_dynamodb2
+
 from lambdas.get_manifests_to_process_handler import ManifestHandler
 
 
 @mock_dynamodb2
 def test_get_manifests_to_process_batch_id():
-
     event = {
         "queueUrl": "url",
         "receiptHandle": "receipt handle",
@@ -89,12 +89,11 @@ def test_get_manifests_to_process_batch_id():
     )
 
     manifest_handler = ManifestHandler()
-    manifest_handler._get_manifests_to_process(event, context=None)
+    manifest_handler._get_manifests_to_process(event)
 
 
 @mock_dynamodb2
 def test_get_manifests_to_process_no_batch_id():
-
     event = {
         "queueUrl": "not actually a url",
         "receiptHandle": "not actually a receipt handle"
@@ -165,11 +164,10 @@ def test_get_manifests_to_process_no_batch_id():
     )
 
     manifest_handler = ManifestHandler()
-    manifest_handler._get_manifests_to_process(event, context=None)
+    manifest_handler._get_manifests_to_process(event)
 
 
 def test_get_manifests():
-
     manifest_handler = ManifestHandler()
     func1 = manifest_handler._get_manifests_to_process
 
@@ -179,8 +177,7 @@ def test_get_manifests():
     try:
         manifest_handler._get_manifests_to_process = mock_get_manifests_to_process
         event = "event"
-        context = None
-        manifest_handler.get_manifests(event, context)
+        manifest_handler.get_manifests(event)
 
     finally:
         manifest_handler._get_manifests_to_process = func1
