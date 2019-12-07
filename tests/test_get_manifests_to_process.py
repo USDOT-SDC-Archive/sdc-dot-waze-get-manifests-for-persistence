@@ -28,22 +28,6 @@ def test_get_manifests_to_process_batch_id():
             {
                 'AttributeName': "BatchId",
                 'AttributeType': 'N'
-            },
-            {
-                'AttributeName': 'FileStatus',
-                'AttributeType': 'S'
-            },
-            {
-                'AttributeName': 'TotalCuratedRecordsByState',
-                'AttributeType': 'N'
-            },
-            {
-                'AttributeName': 'ManifestS3Key',
-                'AttributeType': 'S'
-            },
-            {
-                'AttributeName': 'TableName',
-                'AttributeType': 'S'
             }
         ]
 
@@ -113,22 +97,6 @@ def test_get_manifests_to_process_no_batch_id():
             {
                 'AttributeName': "BatchId",
                 'AttributeType': 'N'
-            },
-            {
-                'AttributeName': 'FileStatus',
-                'AttributeType': 'S'
-            },
-            {
-                'AttributeName': 'TotalCuratedRecordsByState',
-                'AttributeType': 'N'
-            },
-            {
-                'AttributeName': 'ManifestS3Key',
-                'AttributeType': 'S'
-            },
-            {
-                'AttributeName': 'TableName',
-                'AttributeType': 'S'
             }
         ]
 
